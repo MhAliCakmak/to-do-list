@@ -1,16 +1,16 @@
 import { useState, useEffect } from "react";
-
+import "../../../App.css";
 
 export default function Form({ addTodo, todos }) {
   const [form, setForm] = useState("");
 
   const onChangeForm = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    setForm(e.target.value);
   };
   // for forms we need to use onSubmit
   const onSubmitForm = (e) => {
     e.preventDefault();
-    if (form.title) {
+    if (form) {
       console.log(form);
       addTodo([
         ...todos,
@@ -24,23 +24,25 @@ export default function Form({ addTodo, todos }) {
     }
   };
   // Compare this snippet from src\components\todo\form\index.js:
-  useEffect(() => {
+  useEffect(() =>{
     setForm();
   }, [todos]);
 
   return (
-    <div>
-      <h1>Form</h1>
-
+    <header className="header">
+      <h1>todos</h1>
       <form onSubmit={onSubmitForm}>
         <input
           type="text"
           onChange={onChangeForm}
-          name="title"
-          value={form.title}
+          name="form"
+          value={form}
           placeholder="What needs to be done?"
+          className="new-todo"
+          autoFocus
         />
+        
       </form>
-    </div>
+    </header>
   );
 }
